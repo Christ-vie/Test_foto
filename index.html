@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div {
+            text-align: center
+        }
+        canvas{text-align:center}
+    </style>
+</head>
+
+<body>
+    <center>
+        <div>
+            <video id="video" width="640" height="480" autoplay></video>
+        </div>
+        <br />
+        <div>
+            <button id="snap">
+                <img src= "https://img.icons8.com/metro/26/000000/camera.png" alt="Prise de photos" />
+            </button>
+            <button id="switch">
+                <img src= "https://img.icons8.com/metro/26/000000/rotate-camera.png" alt="Tourner la camera" />
+            </button>
+        </div>
+        <br/>
+
+            <canvas id="canvas" width="500" height="450"></canvas>
+            <form class="form-horizontal" role="form" action="" method=" content" enctype="multipart/form-data">
+            <ul>
+                 <li *ngFor="content">
+                    <img src=" " height="250" />
+                 </li>
+            </ul>
+            </form>
+
+
+    </center>
+</body>
+
+<script type="text/javascript">
+
+    var video = document.getElementById('video');
+
+
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: 'user'
+            }
+        }).then(function (stream) {
+            video.srcObject = stream;
+            video.play();
+
+        });
+    }
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+
+
+    document.getElementById("snap").addEventListener("click", function () {
+
+          context.drawImage(video, 0, 0, 500, 450);
+
+
+    });
+
+
+    document.getElementById("switch").addEventListener('click', function () {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'environment'
+                }
+            }).then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            });
+        }
+
+    });
+
+
+</script>
+
+</html>
